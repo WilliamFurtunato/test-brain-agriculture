@@ -46,4 +46,11 @@ export class InMemoryRuralProducersRepository
 
     return ruralProducer
   }
+
+  async delete(id: string) {
+    const index = this.items.findIndex((item) => item.id === id)
+    this.items.splice(index, 1)
+
+    return id
+  }
 }
