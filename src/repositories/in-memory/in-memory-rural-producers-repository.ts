@@ -36,4 +36,14 @@ export class InMemoryRuralProducersRepository
 
     return ruralProducer
   }
+
+  async findById(id: string) {
+    const ruralProducer = this.items.find((item) => item.id === id)
+
+    if (!ruralProducer) {
+      return null
+    }
+
+    return ruralProducer
+  }
 }
