@@ -135,4 +135,49 @@ export class InMemoryRuralProducersRepository
       plantedCrops,
     }
   }
+
+  async countFarms() {
+    return this.items.length
+  }
+
+  async totalHectares() {
+    return this.items.reduce((acc, ruralProducer) => {
+      return (acc += ruralProducer.total_hectares_farm)
+    }, 0)
+  }
+
+  async fetchStates() {
+    const states = this.items.reduce(
+      (acc: { [state: string]: number }, curr) => {
+        acc[curr.state] = (acc[curr.state] || 0) + 1
+        return acc
+      },
+      {},
+    )
+
+    return states
+  }
+
+  async fetchPlantedCrops() {
+    const plantedCrops = this.plantedCrops.reduce(
+      (acc: { [plantedCrop: string]: number }, curr) => {
+        acc[curr.name] = (acc[curr.name] || 0) + 1
+        return acc
+      },
+      {},
+    )
+
+    return plantedCrops
+  }
+
+  async fetchArableAndVegetationHectares() {
+    return this.items.reduce(
+      (acc: { arable: number; vegetation: number }, ruralProducer) => {
+        acc.arable += ruralProducer.arable_hectares
+        acc.vegetation += ruralProducer.vegetation_hectared
+        return acc
+      },
+      { arable: 0, vegetation: 0 },
+    )
+  }
 }
