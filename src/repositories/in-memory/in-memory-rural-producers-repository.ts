@@ -49,8 +49,25 @@ export class InMemoryRuralProducersRepository
 
   async delete(id: string) {
     const index = this.items.findIndex((item) => item.id === id)
-    this.items.splice(index, 1)
+
+    if (index >= 0) {
+      this.items.splice(index, 1)
+    }
 
     return id
+  }
+
+  async update(id: string, data: Partial<RuralProducer>) {
+    const index = this.items.findIndex((item) => item.id === id)
+
+    if (index >= 0) {
+      this.items[index] = {
+        ...this.items[index],
+        ...data,
+        updated_at: new Date(),
+      }
+    }
+
+    return this.items[index]
   }
 }

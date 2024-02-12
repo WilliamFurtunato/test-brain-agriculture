@@ -5,4 +5,8 @@ export interface RuralProducersRepository {
   findByDocument(document: string): Promise<RuralProducer | null>
   findById(id: string): Promise<RuralProducer | null>
   delete(id: string): Promise<string>
+  update(
+    id: string,
+    data: Prisma.RuralProducerUpdateInput,
+  ): Promise<RuralProducer>
 }
