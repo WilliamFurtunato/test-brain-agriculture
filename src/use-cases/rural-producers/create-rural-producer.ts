@@ -1,5 +1,5 @@
 import { RuralProducersRepository } from '@/repositories/rural-producers-repository'
-import { RuralProducer } from '@prisma/client'
+import { $Enums, RuralProducer } from '@prisma/client'
 import { FarmWithInsufficientHectares } from '../errors/farm-with-insufficient-hectares'
 import { RuralProducerAlreadyExistsError } from '../errors/rural-producer-already-exists-error'
 
@@ -12,6 +12,7 @@ interface CreateRuralProducerUseCaseRequest {
   total_hectares_farm: number
   arable_hectares: number
   vegetation_hectared: number
+  crops: { name: $Enums.Crops }[]
 }
 interface CreateRuralProducerUseCaseResponse {
   ruralProducer: RuralProducer
@@ -19,6 +20,7 @@ interface CreateRuralProducerUseCaseResponse {
 
 export class CreateRuralProducerUseCase {
   constructor(private ruralProducersRepository: RuralProducersRepository) {}
+
   async execute({
     document,
     name,
@@ -28,6 +30,7 @@ export class CreateRuralProducerUseCase {
     total_hectares_farm,
     arable_hectares,
     vegetation_hectared,
+    crops,
   }: CreateRuralProducerUseCaseRequest): Promise<CreateRuralProducerUseCaseResponse> {
     const producerWithSameDocument =
       await this.ruralProducersRepository.findByDocument(document)
@@ -41,16 +44,19 @@ export class CreateRuralProducerUseCase {
     if (isSumArableAndVegetationGreaterThanTotal) {
       throw new FarmWithInsufficientHectares()
     }
-    const ruralProducer = await this.ruralProducersRepository.create({
-      document,
-      name,
-      farm_name,
-      city,
-      state,
-      total_hectares_farm,
-      arable_hectares,
-      vegetation_hectared,
-    })
+    const ruralProducer = await this.ruralProducersRepository.create(
+      {
+        document,
+        name,
+        farm_name,
+        city,
+        state,
+        total_hectares_farm,
+        arable_hectares,
+        vegetation_hectared,
+      },
+      crops,
+    )
 
     return { ruralProducer }
   }

@@ -14,16 +14,19 @@ describe('Delete Producer Use Case', () => {
   })
 
   it('should be able to delete a producer', async () => {
-    const producerCreateResponse = await producersRepository.create({
-      document: '12345678910',
-      name: 'John Doe',
-      farm_name: 'John Farm',
-      city: 'Sao Paulo',
-      state: 'sp',
-      total_hectares_farm: 10,
-      arable_hectares: 7,
-      vegetation_hectared: 3,
-    })
+    const producerCreateResponse = await producersRepository.create(
+      {
+        document: '12345678910',
+        name: 'John Doe',
+        farm_name: 'John Farm',
+        city: 'Sao Paulo',
+        state: 'sp',
+        total_hectares_farm: 10,
+        arable_hectares: 7,
+        vegetation_hectared: 3,
+      },
+      [{ name: 'COFFEE' }],
+    )
 
     const { id } = await sut.execute({ id: producerCreateResponse.id })
 

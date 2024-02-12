@@ -1,12 +1,26 @@
-import { Prisma } from '@prisma/client'
+import { $Enums, Prisma } from '@prisma/client'
 import { RuralProducersRepository } from '../rural-producers-repository'
 import { prisma } from '@/lib/prisma'
 
 export class PrismaRuralProducersRepository
   implements RuralProducersRepository
 {
-  async create(data: Prisma.RuralProducerCreateInput) {
-    const producer = await prisma.ruralProducer.create({ data })
+  async create(
+    data: Prisma.RuralProducerCreateInput,
+    crops: { name: $Enums.Crops }[],
+  ) {
+    const producer = await prisma.ruralProducer.create({
+      data: {
+        ...data,
+        plantedCrops: {
+          createMany: {
+            data: crops,
+          },
+        },
+      },
+
+      include: { plantedCrops: true },
+    })
 
     return producer
   }

@@ -1,4 +1,4 @@
-import { Prisma, RuralProducer } from '@prisma/client'
+import { $Enums, PlantedCrops, Prisma, RuralProducer } from '@prisma/client'
 import { RuralProducersRepository } from '../rural-producers-repository'
 import { randomUUID } from 'node:crypto'
 
@@ -6,8 +6,12 @@ export class InMemoryRuralProducersRepository
   implements RuralProducersRepository
 {
   public items: RuralProducer[] = []
+  public plantedCrops: PlantedCrops[] = []
 
-  async create(data: Prisma.RuralProducerCreateInput) {
+  async create(
+    data: Prisma.RuralProducerCreateWithoutPlantedCropsInput,
+    crops: { name: $Enums.Crops }[],
+  ) {
     const producer: RuralProducer = {
       id: randomUUID(),
       name: data.name,
@@ -24,7 +28,18 @@ export class InMemoryRuralProducersRepository
 
     this.items.push(producer)
 
-    return producer
+    const plantedCrops = crops?.map((crop) => {
+      const plantedCrop = {
+        id: randomUUID(),
+        name: crop.name,
+        ruralProducerId: producer.id,
+      }
+      return plantedCrop
+    })
+
+    plantedCrops && this.plantedCrops.push(...plantedCrops)
+
+    return { ...producer, plantedCrops }
   }
 
   async findByDocument(document: string) {
@@ -54,9 +69,16 @@ export class InMemoryRuralProducersRepository
       this.items.splice(index, 1)
     }
 
+    const crops = this.plantedCrops.filter(
+      (crop) => crop.ruralProducerId !== id,
+    )
+
+    this.plantedCrops = crops
+
     return id
   }
 
+  // TODO - atualizar crops + tests
   async update(id: string, data: Partial<RuralProducer>) {
     const index = this.items.findIndex((item) => item.id === id)
 

@@ -19,10 +19,16 @@ describe('Create Producer Use Case', () => {
       city: 'Sao Paulo',
       state: 'sp',
       total_hectares_farm: 10,
-      arable_hectares: 7,
-      vegetation_hectared: 3,
+      arable_hectares: 5,
+      vegetation_hectared: 5,
+      crops: [
+        { name: 'COFFEE' },
+        { name: 'CORN' },
+        { name: 'COTTON' },
+        { name: 'SOYBEANS' },
+        { name: 'SUGARCANE' },
+      ],
     })
-
     expect(ruralProducer.id).toEqual(expect.any(String))
   })
 
@@ -37,6 +43,7 @@ describe('Create Producer Use Case', () => {
         total_hectares_farm: 10,
         arable_hectares: 6,
         vegetation_hectared: 5,
+        crops: [{ name: 'COFFEE' }],
       }),
     ).rejects.toBeInstanceOf(Error)
   })
@@ -51,6 +58,7 @@ describe('Create Producer Use Case', () => {
       total_hectares_farm: 10,
       arable_hectares: 5,
       vegetation_hectared: 5,
+      crops: [{ name: 'COFFEE' }],
     })
 
     await expect(() =>
@@ -63,6 +71,7 @@ describe('Create Producer Use Case', () => {
         total_hectares_farm: 10,
         arable_hectares: 5,
         vegetation_hectared: 5,
+        crops: [{ name: 'COFFEE' }],
       }),
     ).rejects.toBeInstanceOf(Error)
   })
