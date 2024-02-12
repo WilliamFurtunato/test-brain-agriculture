@@ -1,6 +1,6 @@
 ## Requisitos de negócio
 
-- [] O usuário deverá ter a possibilidade de cadastrar produtores rurais.
+- [-] O usuário deverá ter a possibilidade de cadastrar produtores rurais.
 - [] O usuário deverá ter a possibilidade de editar produtores rurais.
 - [] O usuário deverá ter a possibilidade de excluir produtores rurais.
 - [x] O sistema deverá validar CPF e CNPJ digitados incorretamente.
