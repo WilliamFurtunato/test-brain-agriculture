@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Crops {
+  SOYBEANS
+  CORN
+  COTTON
+  COFFEE
+  SUGARCANE
+}
+
+model RuralProducer {
+  id                  String  @id @default(uuid())
+  document            String  @unique
+  name                String
+  farm_name           String
+  city                String
+  state               String
+  total_hectares_farm Float
+  arable_hectares     Float
+  vegetation_hectared Float
+  plantedCrops        Crops[]
+
+  created_at DateTime  @default(now())
+  updated_at DateTime?
+
+  @@map("rural_producers")
+}
