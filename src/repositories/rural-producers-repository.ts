@@ -11,5 +11,6 @@ export interface RuralProducersRepository {
   update(
     id: string,
     data: Prisma.RuralProducerUpdateInput,
+    crops?: { name: $Enums.Crops }[],
   ): Promise<RuralProducer>
 }

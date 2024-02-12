@@ -31,6 +31,7 @@ describe('Update Producer Use Case', () => {
     const { ruralProducer } = await sut.execute({
       ...producerCreateResponse,
       name: 'Updated John',
+      crops: [{ name: 'COTTON' }],
     })
 
     expect(ruralProducer.id).toEqual(expect.any(String))

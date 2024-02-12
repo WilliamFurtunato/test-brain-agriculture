@@ -79,15 +79,52 @@ export class InMemoryRuralProducersRepository
   }
 
   // TODO - atualizar crops + tests
-  async update(id: string, data: Partial<RuralProducer>) {
+  async update(
+    id: string,
+    data: Prisma.RuralProducerUpdateInput,
+    crops: { name: $Enums.Crops }[],
+  ) {
     const index = this.items.findIndex((item) => item.id === id)
 
     if (index >= 0) {
       this.items[index] = {
-        ...this.items[index],
-        ...data,
-        updated_at: new Date(),
+        id,
+        name: data.name?.toString() ?? this.items[index].name,
+        farm_name: data.farm_name?.toString() ?? this.items[index].farm_name,
+        document: data.document?.toString() ?? this.items[index].document,
+        state: data.state?.toString() ?? this.items[index].state,
+        arable_hectares:
+          Number(data.arable_hectares?.toString()) ??
+          this.items[index].arable_hectares,
+        city: data.city?.toString() ?? this.items[index].city,
+        total_hectares_farm:
+          Number(data.total_hectares_farm?.toString()) ??
+          this.items[index].total_hectares_farm,
+        vegetation_hectared:
+          Number(data.vegetation_hectared?.toString()) ??
+          this.items[index].vegetation_hectared,
+        created_at: this.items[index].created_at,
+        updated_at: data.updated_at
+          ? new Date(data.updated_at.toString())
+          : null,
       }
+    }
+
+    if (crops) {
+      this.plantedCrops = this.plantedCrops.filter(
+        (plantedCrop) => plantedCrop.id !== id,
+      )
+
+      const updatedPlantedCrops = crops.map((crop) => {
+        const plantedCrop = {
+          id: randomUUID(),
+          name: crop.name,
+          ruralProducerId: id,
+        }
+        return plantedCrop
+      })
+
+      updatedPlantedCrops && this.plantedCrops.push(...updatedPlantedCrops)
     }
 
     return this.items[index]
