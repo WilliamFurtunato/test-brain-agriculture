@@ -1,8 +1,11 @@
 import fastify from 'fastify'
 import { ZodError } from 'zod'
 import { env } from './env'
+import { ruralProducersRoutes } from './http/controllers/rural-producers/routes'
 
 export const app = fastify()
+
+app.register(ruralProducersRoutes)
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {
