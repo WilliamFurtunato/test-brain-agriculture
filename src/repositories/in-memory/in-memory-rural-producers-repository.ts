@@ -78,11 +78,10 @@ export class InMemoryRuralProducersRepository
     return id
   }
 
-  // TODO - atualizar crops + tests
   async update(
     id: string,
     data: Prisma.RuralProducerUpdateInput,
-    crops: { name: $Enums.Crops }[],
+    crops?: { name: $Enums.Crops }[],
   ) {
     const index = this.items.findIndex((item) => item.id === id)
 
@@ -112,7 +111,7 @@ export class InMemoryRuralProducersRepository
 
     if (crops) {
       this.plantedCrops = this.plantedCrops.filter(
-        (plantedCrop) => plantedCrop.id !== id,
+        (plantedCrop) => plantedCrop.ruralProducerId !== id,
       )
 
       const updatedPlantedCrops = crops.map((crop) => {
@@ -127,6 +126,13 @@ export class InMemoryRuralProducersRepository
       updatedPlantedCrops && this.plantedCrops.push(...updatedPlantedCrops)
     }
 
-    return this.items[index]
+    const plantedCrops = this.plantedCrops.filter(
+      (plantedCrop) => plantedCrop.ruralProducerId === id,
+    )
+
+    return {
+      ...this.items[index],
+      plantedCrops,
+    }
   }
 }

@@ -5,11 +5,11 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
 export async function remove(request: FastifyRequest, reply: FastifyReply) {
-  const createProducersParamsSchema = z.object({
+  const removeProducersParamsSchema = z.object({
     id: z.string(),
   })
 
-  const { id } = createProducersParamsSchema.parse(request.params)
+  const { id } = removeProducersParamsSchema.parse(request.params)
 
   try {
     const deleteProducerUseCase = makeDeleteRuralProducersUseCase()

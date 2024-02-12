@@ -20,19 +20,21 @@ interface UpdateRuralProducerUseCaseResponse {
 
 export class UpdateRuralProducerUseCase {
   constructor(private ruralProducersRepository: RuralProducersRepository) {}
-  async execute(
-    data: UpdateRuralProducerUseCaseRequest,
-  ): Promise<UpdateRuralProducerUseCaseResponse> {
-    const producerExists = await this.ruralProducersRepository.findById(data.id)
+  async execute({
+    id,
+    crops,
+    ...data
+  }: UpdateRuralProducerUseCaseRequest): Promise<UpdateRuralProducerUseCaseResponse> {
+    const producerExists = await this.ruralProducersRepository.findById(id)
 
     if (!producerExists) {
       throw new ResourceNotFoundError()
     }
 
     const ruralProducer = await this.ruralProducersRepository.update(
-      data.id,
+      id,
       data,
-      data.crops,
+      crops,
     )
 
     return { ruralProducer }
