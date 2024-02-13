@@ -2,6 +2,7 @@ import request from 'supertest'
 import { app } from '@/app'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { prisma } from '@/lib/prisma'
+import { createAndAuthenticateUser } from '@/utils/test/create-and-authenticate-user'
 
 describe('Metrics (e2e)', () => {
   beforeAll(async () => {
@@ -12,6 +13,8 @@ describe('Metrics (e2e)', () => {
   })
 
   it('should be able to get metrics', async () => {
+    const { token } = await createAndAuthenticateUser(app, true)
+
     await prisma.ruralProducer.create({
       data: {
         document: '154.876.820-03',
@@ -54,7 +57,10 @@ describe('Metrics (e2e)', () => {
       include: { plantedCrops: true },
     })
 
-    const response = await request(app.server).get('/metrics').send()
+    const response = await request(app.server)
+      .get('/metrics')
+      .set('Authorization', `Bearer ${token}`)
+      .send()
     expect(response.statusCode).toEqual(200)
     expect(response.body.metrics).toEqual(
       expect.objectContaining({

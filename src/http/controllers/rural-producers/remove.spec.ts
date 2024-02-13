@@ -1,6 +1,7 @@
 import request from 'supertest'
 import { app } from '@/app'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
+import { createAndAuthenticateUser } from '@/utils/test/create-and-authenticate-user'
 
 describe('Remove Producers (e2e)', () => {
   beforeAll(async () => {
@@ -11,8 +12,10 @@ describe('Remove Producers (e2e)', () => {
   })
 
   it('should be able to remove a producer', async () => {
+    const { token } = await createAndAuthenticateUser(app, true)
     const createProducerResponse = await request(app.server)
       .post('/producer')
+      .set('Authorization', `Bearer ${token}`)
       .send({
         document: '154.876.820-03',
         name: 'John Doe',
@@ -42,9 +45,10 @@ describe('Remove Producers (e2e)', () => {
       })
     expect(createProducerResponse.statusCode).toEqual(201)
 
-    const response = await request(app.server).delete(
-      `/producer/${createProducerResponse.body.ruralProducer.id}`,
-    )
+    const response = await request(app.server)
+      .delete(`/producer/${createProducerResponse.body.ruralProducer.id}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send()
 
     expect(response.statusCode).toEqual(200)
   })

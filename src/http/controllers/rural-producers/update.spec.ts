@@ -1,6 +1,7 @@
 import request from 'supertest'
 import { app } from '@/app'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
+import { createAndAuthenticateUser } from '@/utils/test/create-and-authenticate-user'
 
 describe('Update Producers (e2e)', () => {
   beforeAll(async () => {
@@ -11,8 +12,11 @@ describe('Update Producers (e2e)', () => {
   })
 
   it('should be able to update a producer', async () => {
+    const { token } = await createAndAuthenticateUser(app, true)
+
     const createProducerResponse = await request(app.server)
       .post('/producer')
+      .set('Authorization', `Bearer ${token}`)
       .send({
         document: '95.775.315/0001-17',
         name: 'John Doe',
@@ -32,6 +36,7 @@ describe('Update Producers (e2e)', () => {
 
     const response = await request(app.server)
       .put(`/producer/${createProducerResponse.body.ruralProducer.id}`)
+      .set('Authorization', `Bearer ${token}`)
       .send({
         name: 'John Doe Second',
         crops: [
