@@ -136,28 +136,6 @@ export class InMemoryRuralProducersRepository
     }
   }
 
-  async countFarms() {
-    return this.items.length
-  }
-
-  async totalHectares() {
-    return this.items.reduce((acc, ruralProducer) => {
-      return (acc += ruralProducer.total_hectares_farm)
-    }, 0)
-  }
-
-  async fetchStates() {
-    const states = this.items.reduce(
-      (acc: { [state: string]: number }, curr) => {
-        acc[curr.state] = (acc[curr.state] || 0) + 1
-        return acc
-      },
-      {},
-    )
-
-    return states
-  }
-
   async fetchPlantedCrops() {
     const plantedCrops = this.plantedCrops.reduce(
       (acc: { [plantedCrop: string]: number }, curr) => {
@@ -179,5 +157,20 @@ export class InMemoryRuralProducersRepository
       },
       { arable: 0, vegetation: 0 },
     )
+  }
+
+  async fetchRuralProducers() {
+    const ruralProducers = this.items.map((item) => {
+      const ruralProducer = {
+        ...item,
+        plantedCrops: this.plantedCrops.filter(
+          (plantedCrop) => plantedCrop.ruralProducerId === item.id,
+        ),
+      }
+
+      return ruralProducer
+    })
+
+    return ruralProducers
   }
 }

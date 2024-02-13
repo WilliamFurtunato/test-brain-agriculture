@@ -13,12 +13,6 @@ export interface RuralProducersRepository {
     data: Prisma.RuralProducerUpdateInput,
     crops?: { name: $Enums.Crops }[],
   ): Promise<RuralProducer>
-  countFarms(): Promise<number>
-  totalHectares(): Promise<number>
-  fetchStates(): Promise<{ [state: string]: number }>
   fetchPlantedCrops(): Promise<{ [plantedCrop: string]: number }>
-  fetchArableAndVegetationHectares(): Promise<{
-    arable: number
-    vegetation: number
-  }>
+  fetchRuralProducers(): Promise<RuralProducer[]>
 }

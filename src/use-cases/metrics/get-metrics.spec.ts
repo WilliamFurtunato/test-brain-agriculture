@@ -1,6 +1,6 @@
 import { InMemoryRuralProducersRepository } from '@/repositories/in-memory/in-memory-rural-producers-repository'
 import { describe, it, beforeEach, expect } from 'vitest'
-import { GetMetricsUseCase } from './metrics'
+import { GetMetricsUseCase } from './get-metrics'
 
 let ruralProducerRepository: InMemoryRuralProducersRepository
 let sut: GetMetricsUseCase
