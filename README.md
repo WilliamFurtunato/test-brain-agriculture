@@ -12,8 +12,8 @@
 
 # A plataforma deverá ter um Dashboard que exiba:
 
-- [] Total de fazendas em quantidade
-- [] Total de fazendas em hectares (área total)
-- [] Gráfico de pizza por estado.
-- [] Gráfico de pizza por cultura.
-- [] Gráfico de pizza por uso de solo (Área agricultável e vegetação)
+- [x] Total de fazendas em quantidade
+- [x] Total de fazendas em hectares (área total)
+- [x] Gráfico de pizza por estado.
+- [x] Gráfico de pizza por cultura.
+- [x] Gráfico de pizza por uso de solo (Área agricultável e vegetação)

@@ -2,10 +2,12 @@ import fastify from 'fastify'
 import { ZodError } from 'zod'
 import { env } from './env'
 import { ruralProducersRoutes } from './http/controllers/rural-producers/routes'
+import { metricsRoutes } from './http/controllers/metrics/routes'
 
 export const app = fastify()
 
 app.register(ruralProducersRoutes)
+app.register(metricsRoutes)
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {

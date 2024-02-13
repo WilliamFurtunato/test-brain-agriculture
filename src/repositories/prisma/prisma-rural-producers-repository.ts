@@ -106,6 +106,20 @@ export class PrismaRuralProducersRepository
   async fetchRuralProducers() {
     const ruralProducers = await prisma.ruralProducer.findMany()
 
+    if (ruralProducers.length <= 0) {
+      return null
+    }
+
     return ruralProducers
+  }
+
+  async fetchPlantedCrops() {
+    const plantedCrops = await prisma.plantedCrops.findMany()
+
+    if (plantedCrops.length <= 0) {
+      return null
+    }
+
+    return plantedCrops
   }
 }
