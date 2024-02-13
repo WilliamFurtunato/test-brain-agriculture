@@ -3,6 +3,7 @@ import { expect, describe, it, beforeEach } from 'vitest'
 import { ResourceNotFoundError } from '../errors/resource-not-found-error'
 import { InMemoryRuralProducersRepository } from '@/repositories/in-memory/in-memory-rural-producers-repository'
 import { UpdateRuralProducerUseCase } from './update-rural-producer'
+import { FarmWithInsufficientHectares } from '../errors/farm-with-insufficient-hectares'
 
 let producersRepository: InMemoryRuralProducersRepository
 let sut: UpdateRuralProducerUseCase
@@ -84,5 +85,49 @@ describe('Update Producer Use Case', () => {
       expect.objectContaining({ name: 'COTTON' }),
       expect.objectContaining({ name: 'COFFEE' }),
     ])
+  })
+
+  it('should not be able to update a producer with insufficient farm area', async () => {
+    const producerCreateResponse = await producersRepository.create(
+      {
+        document: '12345678910',
+        name: 'John Doe',
+        farm_name: 'John Farm',
+        city: 'Sao Paulo',
+        state: 'sp',
+        total_hectares_farm: 10,
+        arable_hectares: 7,
+        vegetation_hectared: 3,
+      },
+      [{ name: 'COFFEE' }],
+    )
+
+    await expect(() =>
+      sut.execute({
+        ...producerCreateResponse,
+        arable_hectares: 8,
+      }),
+    ).rejects.toBeInstanceOf(FarmWithInsufficientHectares)
+
+    await expect(() =>
+      sut.execute({
+        ...producerCreateResponse,
+        vegetation_hectared: 8,
+      }),
+    ).rejects.toBeInstanceOf(FarmWithInsufficientHectares)
+    await expect(() =>
+      sut.execute({
+        ...producerCreateResponse,
+        total_hectares_farm: 2,
+      }),
+    ).rejects.toBeInstanceOf(FarmWithInsufficientHectares)
+    await expect(() =>
+      sut.execute({
+        ...producerCreateResponse,
+        total_hectares_farm: 10,
+        arable_hectares: 8,
+        vegetation_hectared: 8,
+      }),
+    ).rejects.toBeInstanceOf(FarmWithInsufficientHectares)
   })
 })

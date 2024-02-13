@@ -1,6 +1,7 @@
 import { RuralProducersRepository } from '@/repositories/rural-producers-repository'
 import { ResourceNotFoundError } from '../errors/resource-not-found-error'
 import { $Enums, RuralProducer } from '@prisma/client'
+import { FarmWithInsufficientHectares } from '../errors/farm-with-insufficient-hectares'
 
 interface UpdateRuralProducerUseCaseRequest {
   id: string
@@ -29,6 +30,19 @@ export class UpdateRuralProducerUseCase {
 
     if (!producerExists) {
       throw new ResourceNotFoundError()
+    }
+
+    const arableHectares =
+      data.arable_hectares ?? producerExists.arable_hectares
+    const vegetationHectares =
+      data.vegetation_hectared ?? producerExists.vegetation_hectared
+    const totalHectares =
+      data.total_hectares_farm ?? producerExists.total_hectares_farm
+
+    const isSumArableAndVegetationGreaterThanTotal =
+      arableHectares + vegetationHectares > totalHectares
+    if (isSumArableAndVegetationGreaterThanTotal) {
+      throw new FarmWithInsufficientHectares()
     }
 
     const ruralProducer = await this.ruralProducersRepository.update(
