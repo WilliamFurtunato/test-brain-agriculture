@@ -17,3 +17,8 @@
 - [x] Gráfico de pizza por estado.
 - [x] Gráfico de pizza por cultura.
 - [x] Gráfico de pizza por uso de solo (Área agricultável e vegetação)
+
+# ETC
+
+- [] Seeds
+- [] Doc
