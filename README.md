@@ -25,11 +25,11 @@ Criar uma aplicação para cadastro de produtores rurais.
 
 ## Rotas
 
-É possível importar a collection no Postman através do arquivo: [Collection](./collection.json)
+É possível importar a collection no Postman através do arquivo: [Collection](./collection.json) e [Collection Envs](./collection-envs.json)
 
 Todas as rotas (com excessão da `users`) é necessário estar autenticado com um usuário admin. Portanto, não esquecer de rodar o comando `npx prisma db seed` para popular o banco com o usuário `admin`
 
-### **_Session_**
+### **_SESSION_**
 
 #### **POST** Generate token
 
@@ -61,9 +61,9 @@ http://localhost:3333/token/refresh
 }
 ```
 
-### **_User_**
+### **USER**
 
-#### **POST** Create
+#### **POST** Create user
 
 ```
 http://localhost:3333/users
@@ -78,9 +78,9 @@ http://localhost:3333/users
 }
 ```
 
-### **_Rural Producer_**
+### **_RURAL PRODUCER_**
 
-#### **POST** Register
+#### **POST** Create Rural Producer
 
 ```
 http://localhost:3333/producer
@@ -118,13 +118,13 @@ http://localhost:3333/producer
 }
 ```
 
-#### **DELETE** Remove
+#### **DELETE** Remove Rural Producer
 
 ```
 http://localhost:3333/producer/{producerId}
 ```
 
-#### **PUT** Update
+#### **PUT** Update Rural Producer
 
 ```
 http://localhost:3333/producer
@@ -161,7 +161,7 @@ http://localhost:3333/producer
 }
 ```
 
-### **_Dashboard_**
+### **DASHBOARD**
 
 #### **GET** Metrics
 
