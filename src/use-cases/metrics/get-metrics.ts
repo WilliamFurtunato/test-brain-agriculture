@@ -34,8 +34,18 @@ export class GetMetricsUseCase {
       {},
     )
 
-    const totalPlantesCrops =
-      await this.ruralProducersRepository.fetchPlantedCrops()
+    const plantedCrops = await this.ruralProducersRepository.fetchPlantedCrops()
+
+    if (!plantedCrops) {
+      throw new ResourceNotFoundError()
+    }
+    const totalPlantesCrops = plantedCrops.reduce(
+      (acc: { [plantedCrop: string]: number }, curr) => {
+        acc[curr.name] = (acc[curr.name] || 0) + 1
+        return acc
+      },
+      {},
+    )
 
     const totalLandUse = ruralProducers.reduce(
       (acc: { arable: number; vegetation: number }, ruralProducer) => {

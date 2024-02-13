@@ -1,4 +1,4 @@
-import { $Enums, Prisma, RuralProducer } from '@prisma/client'
+import { $Enums, PlantedCrops, Prisma, RuralProducer } from '@prisma/client'
 
 export interface RuralProducersRepository {
   create(
@@ -13,6 +13,6 @@ export interface RuralProducersRepository {
     data: Prisma.RuralProducerUpdateInput,
     crops?: { name: $Enums.Crops }[],
   ): Promise<RuralProducer>
-  fetchPlantedCrops(): Promise<{ [plantedCrop: string]: number }>
+  fetchPlantedCrops(): Promise<PlantedCrops[] | null>
   fetchRuralProducers(): Promise<RuralProducer[] | null>
 }

@@ -137,13 +137,7 @@ export class InMemoryRuralProducersRepository
   }
 
   async fetchPlantedCrops() {
-    const plantedCrops = this.plantedCrops.reduce(
-      (acc: { [plantedCrop: string]: number }, curr) => {
-        acc[curr.name] = (acc[curr.name] || 0) + 1
-        return acc
-      },
-      {},
-    )
+    const plantedCrops = this.plantedCrops
 
     return plantedCrops
   }
