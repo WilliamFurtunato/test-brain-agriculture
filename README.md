@@ -119,6 +119,12 @@ http://localhost:3333/producer
 }
 ```
 
+#### **GET** Get Rural Producer
+
+```
+http://localhost:3333/producer/{producerDocument}
+```
+
 #### **DELETE** Remove Rural Producer
 
 ```
@@ -128,7 +134,7 @@ http://localhost:3333/producer/{producerId}
 #### **PUT** Update Rural Producer
 
 ```
-http://localhost:3333/producer
+http://localhost:3333/producer/{producerId}
 ```
 
 ##### Body raw (json)

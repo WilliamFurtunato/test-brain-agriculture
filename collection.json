@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "fb2c0aa8-3744-4e9f-87d6-37eaf55e4e30",
 		"name": "test-brain-agricultural",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "6555661"
 	},
 	"item": [
@@ -36,15 +36,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{url}}/sessions",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"sessions"
-							]
-						}
+						"url": "{{url}}/sessions"
 					},
 					"response": []
 				},
@@ -66,16 +58,7 @@
 					"request": {
 						"method": "PATCH",
 						"header": [],
-						"url": {
-							"raw": "{{url}}/token/refresh",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"token",
-								"refresh"
-							]
-						}
+						"url": "{{url}}/token/refresh"
 					},
 					"response": []
 				}
@@ -98,15 +81,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{url}}/users",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"users"
-							]
-						}
+						"url": "{{url}}/users"
 					},
 					"response": []
 				}
@@ -124,7 +99,9 @@
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);\r",
 									"var producerId = jsonData.ruralProducer.id;\r",
-									"postman.setEnvironmentVariable(\"producerId\", producerId);"
+									"postman.setEnvironmentVariable(\"producerId\", producerId);\r",
+									"var producerDoc = jsonData.ruralProducer.document;\r",
+									"postman.setEnvironmentVariable(\"producerDoc\", producerDoc);"
 								],
 								"type": "text/javascript"
 							}
@@ -142,15 +119,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{url}}/producer",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"producer"
-							]
-						}
+						"url": "{{url}}/producer"
 					},
 					"response": []
 				},
@@ -159,16 +128,16 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": "{{url}}/producer/{{producerId}}",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"producer",
-								"{{producerId}}"
-							]
-						}
+						"url": "{{url}}/producer/{{producerId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/producer/{{producerDoc}}"
 					},
 					"response": []
 				},
@@ -186,16 +155,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{url}}/producer/{{producerId}}",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"producer",
-								"{{producerId}}"
-							]
-						}
+						"url": "{{url}}/producer/{{producerId}}"
 					},
 					"response": []
 				}
@@ -209,15 +169,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{url}}/metrics",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"metrics"
-							]
-						}
+						"url": "{{url}}/metrics"
 					},
 					"response": []
 				}

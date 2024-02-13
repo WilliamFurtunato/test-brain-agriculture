@@ -4,6 +4,7 @@ import { remove } from './remove'
 import { update } from './update'
 import { verifyJWT } from '@/http/middlewares/verify-jwt'
 import { verifyUserRole } from '@/http/middlewares/verify-user-role'
+import { get } from './get'
 
 export async function ruralProducersRoutes(app: FastifyInstance) {
   app.addHook('onRequest', verifyJWT)
@@ -12,4 +13,5 @@ export async function ruralProducersRoutes(app: FastifyInstance) {
   app.post('/producer', create)
   app.delete('/producer/:id', remove)
   app.put('/producer/:id', update)
+  app.get('/producer/:document', get)
 }
