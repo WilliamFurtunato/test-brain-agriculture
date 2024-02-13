@@ -27,6 +27,8 @@ Criar uma aplicação para cadastro de produtores rurais.
 
 É possível importar a collection no Postman através do arquivo: [Collection](./collection.json)
 
+Todas as rotas (com excessão da `users`) é necessário estar autenticado com um usuário admin. Portanto, não esquecer de rodar o comando `npx prisma db seed` para popular o banco com o usuário `admin`
+
 ### Session
 
 #### POST Generate token
@@ -42,4 +44,127 @@ http://localhost:3333/sessions
   "email": "admin@prisma.io",
   "password": "123456"
 }
+```
+
+#### PATCH Refresh Token
+
+```
+http://localhost:3333/token/refresh
+```
+
+##### Body raw (json)
+
+```json
+{
+  "email": "admin@prisma.io",
+  "password": "123456"
+}
+```
+
+### User
+
+#### POST Create
+
+```
+http://localhost:3333/users
+```
+
+##### Body raw (json)
+
+```json
+{
+  "email": "admin@prisma.io",
+  "password": "123456"
+}
+```
+
+### Rural Producer
+
+#### POST Register
+
+```
+http://localhost:3333/producer
+```
+
+##### Body raw (json)
+
+```json
+{
+  "document": "95.775.315/0001-17",
+  "name": "John Doe",
+  "farm_name": "xpto farm",
+  "city": "Sao Paulo",
+  "state": "SP",
+  "total_hectares_farm": 10,
+  "arable_hectares": 5,
+  "vegetation_hectared": 3,
+  "crops": [
+    {
+      "name": "SOYBEANS"
+    },
+    {
+      "name": "CORN"
+    },
+    {
+      "name": "COTTON"
+    },
+    {
+      "name": "COFFEE"
+    },
+    {
+      "name": "SUGARCANE"
+    }
+  ]
+}
+```
+
+#### Delete Remove
+
+```
+http://localhost:3333/producer/{producerId}
+```
+
+#### PUT Update
+
+```
+http://localhost:3333/producer
+```
+
+##### Body raw (json)
+
+```json
+{
+  "name": "John Doe",
+  "farm_name": "xpto farm",
+  "city": "Sao Paulo",
+  "state": "SP",
+  "total_hectares_farm": 10,
+  "arable_hectares": 5,
+  "vegetation_hectared": 3,
+  "crops": [
+    {
+      "name": "SOYBEANS"
+    },
+    {
+      "name": "CORN"
+    },
+    {
+      "name": "COTTON"
+    },
+    {
+      "name": "COFFEE"
+    },
+    {
+      "name": "SUGARCANE"
+    }
+  ]
+}
+```
+
+### Dashboard
+
+#### GET Metrics
+
+```
+http://localhost:3333/metrics
 ```
