@@ -29,9 +29,9 @@ Criar uma aplicação para cadastro de produtores rurais.
 
 Todas as rotas (com excessão da `users`) é necessário estar autenticado com um usuário admin. Portanto, não esquecer de rodar o comando `npx prisma db seed` para popular o banco com o usuário `admin`
 
-### Session
+### **_Session_**
 
-#### POST Generate token
+#### **POST** Generate token
 
 ```
 http://localhost:3333/sessions
@@ -46,7 +46,7 @@ http://localhost:3333/sessions
 }
 ```
 
-#### PATCH Refresh Token
+#### **PATCH** Refresh Token
 
 ```
 http://localhost:3333/token/refresh
@@ -61,9 +61,9 @@ http://localhost:3333/token/refresh
 }
 ```
 
-### User
+### **_User_**
 
-#### POST Create
+#### **POST** Create
 
 ```
 http://localhost:3333/users
@@ -78,9 +78,9 @@ http://localhost:3333/users
 }
 ```
 
-### Rural Producer
+### **_Rural Producer_**
 
-#### POST Register
+#### **POST** Register
 
 ```
 http://localhost:3333/producer
@@ -118,13 +118,13 @@ http://localhost:3333/producer
 }
 ```
 
-#### Delete Remove
+#### **DELETE** Remove
 
 ```
 http://localhost:3333/producer/{producerId}
 ```
 
-#### PUT Update
+#### **PUT** Update
 
 ```
 http://localhost:3333/producer
@@ -161,9 +161,9 @@ http://localhost:3333/producer
 }
 ```
 
-### Dashboard
+### **_Dashboard_**
 
-#### GET Metrics
+#### **GET** Metrics
 
 ```
 http://localhost:3333/metrics
