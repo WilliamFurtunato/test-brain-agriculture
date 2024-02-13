@@ -26,3 +26,20 @@ Criar uma aplicação para cadastro de produtores rurais.
 ## Rotas
 
 É possível importar a collection no Postman através do arquivo: [Collection](./collection.json)
+
+### Session
+
+#### POST Generate token
+
+```
+http://localhost:3333/sessions
+```
+
+##### Body raw (json)
+
+```json
+{
+  "email": "admin@prisma.io",
+  "password": "123456"
+}
+```
