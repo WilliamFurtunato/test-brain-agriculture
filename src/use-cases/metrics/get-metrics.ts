@@ -1,4 +1,5 @@
 import { RuralProducersRepository } from '@/repositories/rural-producers-repository'
+import { ResourceNotFoundError } from '../errors/resource-not-found-error'
 
 interface GetMetricsUseCaseResponse {
   totalFarms: number
@@ -15,7 +16,9 @@ export class GetMetricsUseCase {
     const ruralProducers =
       await this.ruralProducersRepository.fetchRuralProducers()
 
-    console.log(ruralProducers)
+    if (!ruralProducers) {
+      throw new ResourceNotFoundError()
+    }
 
     const totalFarms = ruralProducers.length
 

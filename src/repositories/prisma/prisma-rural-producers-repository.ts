@@ -103,13 +103,9 @@ export class PrismaRuralProducersRepository
     return ruralProducer
   }
 
-  async countFarms() {
-    const farms = await prisma.ruralProducer.count()
+  async fetchRuralProducers() {
+    const ruralProducers = await prisma.ruralProducer.findMany()
 
-    return farms
-  }
-
-  async fetchStates() {
-    const sta
+    return ruralProducers
   }
 }

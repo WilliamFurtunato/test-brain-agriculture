@@ -171,6 +171,10 @@ export class InMemoryRuralProducersRepository
       return ruralProducer
     })
 
+    if (ruralProducers.length <= 0) {
+      return null
+    }
+
     return ruralProducers
   }
 }

@@ -1,6 +1,7 @@
 import { InMemoryRuralProducersRepository } from '@/repositories/in-memory/in-memory-rural-producers-repository'
 import { describe, it, beforeEach, expect } from 'vitest'
 import { GetMetricsUseCase } from './get-metrics'
+import { ResourceNotFoundError } from '../errors/resource-not-found-error'
 
 let ruralProducerRepository: InMemoryRuralProducersRepository
 let sut: GetMetricsUseCase
@@ -68,6 +69,12 @@ describe('Get Metrics Use Case', () => {
         },
         totalLandUse: { arable: 7 + 15 + 5, vegetation: 3 + 7 + 10 },
       }),
+    )
+  })
+
+  it('should not be able to get metrics without rural producers registered', async () => {
+    await expect(() => sut.execute()).rejects.toBeInstanceOf(
+      ResourceNotFoundError,
     )
   })
 })

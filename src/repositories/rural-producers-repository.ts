@@ -14,5 +14,5 @@ export interface RuralProducersRepository {
     crops?: { name: $Enums.Crops }[],
   ): Promise<RuralProducer>
   fetchPlantedCrops(): Promise<{ [plantedCrop: string]: number }>
-  fetchRuralProducers(): Promise<RuralProducer[]>
+  fetchRuralProducers(): Promise<RuralProducer[] | null>
 }
