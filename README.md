@@ -4,6 +4,15 @@
 
 Criar uma aplicação para cadastro de produtores rurais.
 
+## Tecnologias utilizadas
+
+- fastify
+- typescript
+- vitest
+- prisma
+- docker
+- SOLID
+
 ## Instruções
 
 1. Clone o repositório
