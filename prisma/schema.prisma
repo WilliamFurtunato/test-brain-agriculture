@@ -45,3 +45,18 @@ model PlantedCrops {
 
   @@map("planted_crops")
 }
+
+enum Role {
+  ADMIN
+  VIEWER
+}
+
+model User {
+  id            String   @id @default(uuid())
+  email         String   @unique
+  password_hash String
+  role          Role     @default(VIEWER)
+  created_at    DateTime @default(now())
+
+  @@map("users")
+}
