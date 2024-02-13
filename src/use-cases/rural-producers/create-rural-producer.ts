@@ -46,7 +46,7 @@ export class CreateRuralProducerUseCase {
     }
     const ruralProducer = await this.ruralProducersRepository.create(
       {
-        document,
+        document: document.replace(/\D/g, ''),
         name,
         farm_name,
         city,
