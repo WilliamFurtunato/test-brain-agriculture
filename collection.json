@@ -1,0 +1,227 @@
+{
+	"info": {
+		"_postman_id": "fb2c0aa8-3744-4e9f-87d6-37eaf55e4e30",
+		"name": "test-brain-agricultural",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6555661"
+	},
+	"item": [
+		{
+			"name": "Session",
+			"item": [
+				{
+					"name": "Generate token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var token = jsonData.token;\r",
+									"postman.setEnvironmentVariable(\"token\", token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"admin@prisma.io\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/sessions",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"sessions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var token = jsonData.token;\r",
+									"postman.setEnvironmentVariable(\"token\", token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/token/refresh",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"token",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"wfs@prisma.io\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rural Producer",
+			"item": [
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var producerId = jsonData.ruralProducer.id;\r",
+									"postman.setEnvironmentVariable(\"producerId\", producerId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"document\": \"95.775.315/0001-17\",\r\n    \"name\": \"John Doe\",\r\n    \"farm_name\": \"xpto farm\",\r\n    \"city\": \"Sao Paulo\",\r\n    \"state\": \"SP\",\r\n    \"total_hectares_farm\": 10,\r\n    \"arable_hectares\": 5,\r\n    \"vegetation_hectared\": 3,\r\n    \"crops\": [\r\n        {\r\n            \"name\": \"SOYBEANS\"\r\n        },\r\n        {\r\n            \"name\": \"CORN\"\r\n        },\r\n        {\r\n            \"name\": \"COTTON\"\r\n        },\r\n        {\r\n            \"name\": \"COFFEE\"\r\n        },\r\n        {\r\n            \"name\": \"SUGARCANE\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/producer",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"producer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/producer/{{producerId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"producer",
+								"{{producerId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"John Doe\",\r\n    \"farm_name\": \"xpto farm\",\r\n    \"city\": \"Sao Paulo\",\r\n    \"state\": \"SP\",\r\n    \"total_hectares_farm\": 10,\r\n    \"arable_hectares\": 5,\r\n    \"vegetation_hectared\": 3,\r\n    \"crops\": [\r\n        {\r\n            \"name\": \"SOYBEANS\"\r\n        },\r\n        {\r\n            \"name\": \"CORN\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/producer/{{producerId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"producer",
+								"{{producerId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dashboard",
+			"item": [
+				{
+					"name": "Metrics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/metrics",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"metrics"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

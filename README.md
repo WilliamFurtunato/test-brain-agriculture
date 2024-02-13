@@ -1,24 +1,28 @@
-## Requisitos de negócio
+# Test - Brain Agriculture
 
-- [x] O usuário deverá ter a possibilidade de cadastrar produtores rurais.
-- [x] O usuário deverá ter a possibilidade de editar produtores rurais.
-- [x] O usuário deverá ter a possibilidade de excluir produtores rurais.
-- [x] O sistema deverá validar CPF e CNPJ digitados incorretamente.
-- [x] A soma de área agrícultável e vegetação, não deverá ser maior que a área total da fazenda
-- [x] Cada produtor pode plantar mais de uma cultura em sua Fazenda.
-- [x] Usuario ADMIN autenticado cadastrar produtores rurais.
-- [x] Usuario ADMIN autenticado editar produtores rurais.
-- [x] Usuario ADMIN autenticado excluir produtores rurais.
+## Sobre o desafio
 
-# A plataforma deverá ter um Dashboard que exiba:
+Criar uma aplicação para cadastro de produtores rurais.
 
-- [x] Total de fazendas em quantidade
-- [x] Total de fazendas em hectares (área total)
-- [x] Gráfico de pizza por estado.
-- [x] Gráfico de pizza por cultura.
-- [x] Gráfico de pizza por uso de solo (Área agricultável e vegetação)
+## Instruções
 
-# ETC
+1. Clone o repositório
+2. Execute `npm install` para instalar as dependências
+3. Execute `docker-compose up -d` para criar o container do banco de dados
+4. Execute `npx prisma migrate deploy` para rodar as migrations e criar as tabelas no banco de dados
+5. Execute `npx prisma db seed` para popular o banco de dados com dados mockados
+6. Execute `npm run build` para realizar o build do projeto
+7. Execute `npm run start` para inicializar o serviço.
 
-- [] Seeds
-- [] Doc
+**Atenção**: Criar o arquivo .env e substituir as variáveis de acordo com o .env.example
+
+## Dicas
+
+- Execute `npx prisma studio` para acessar o banco de dados através de interface gráfica
+- Execute `npm run test` para rodar os testes unitários
+- Execute `npm run test:e2e` para rodar os testes end-to-end
+- Execute `npm run start:dev` para rodar os testes end-to-end
+
+## Rotas
+
+É possível importar a collection no Postman através do arquivo: [Collection](./collection.json)
